@@ -25,7 +25,7 @@ export function TimelineDialog({ onClose, onOpenTask }: { onClose: () => void; o
         {!events.length ? <li>Nothing yet. Assign a task at the front desk.</li> : null}
       </ol>
       <div className="modal-foot">
-        <button type="button" className="btn btn-cream" onClick={() => downloadJson("agenly-timeline.json", events)} disabled={!events.length}>
+        <button type="button" className="btn btn-cream" onClick={() => downloadJson("agently-timeline.json", events)} disabled={!events.length}>
           Export
         </button>
         <button type="button" className="btn btn-cream" onClick={clearEvents} disabled={!events.length}>

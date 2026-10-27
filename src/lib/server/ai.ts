@@ -72,7 +72,7 @@ export async function runDesk(input: DeskInput): Promise<{ ok: true; text: strin
   try {
     res = await fetch(AI.endpoint, {
       method: "POST",
-      headers: { authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`, "content-type": "application/json", "x-title": "Agenly desks" },
+      headers: { authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`, "content-type": "application/json", "x-title": "Agently desks" },
       body: JSON.stringify({
         model,
         temperature: 0,

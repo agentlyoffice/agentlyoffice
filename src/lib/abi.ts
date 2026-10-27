@@ -1,7 +1,7 @@
 import { parseAbi } from "viem";
 
 /*
- * ABIs the site needs. LEDGER_ABI mirrors contracts/src/AgenlyTaskLedger.sol (src/lib/abi.test.ts checks it
+ * ABIs the site needs. LEDGER_ABI mirrors contracts/src/AgentlyTaskLedger.sol (src/lib/abi.test.ts checks it
  * against the compiled artifact so the two cannot drift apart).
  */
 export const ERC20_ABI = parseAbi([

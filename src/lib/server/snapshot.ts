@@ -8,7 +8,7 @@ import { rpcBatch } from "@/lib/feeds/rpc";
 /*
  * Live facts for the whole site, all read from Robinhood Chain: the latest block and gas, the block pace,
  * ETH / USD from Chainlink, the token once its address is published (plus its Pons bonding curve: price, market cap,
- * graduation progress) and the AgenlyTaskLedger once deployed. Holder count comes from the explorer, best effort.
+ * graduation progress) and the AgentlyTaskLedger once deployed. Holder count comes from the explorer, best effort.
  */
 
 export type ChainSnapshot = {

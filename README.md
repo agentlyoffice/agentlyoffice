@@ -1,9 +1,9 @@
-# Agenly — Assign tasks. Build workflows. Stay in control.
+# Agently — Assign tasks. Build workflows. Stay in control.
 
-**One Office. Many Agents.** Agenly is a virtual agent office on Robinhood Chain: a pixel office where a researcher,
+**One Office. Many Agents.** Agently is a virtual agent office on Robinhood Chain: a pixel office where a researcher,
 a writer and a reviewer agent pass your task desk to desk, every step is logged, each agent may only use the tools
 you allow, and nothing is final until a person approves it. An approved result can be recorded on chain as two
-fingerprints in `AgenlyTaskLedger`.
+fingerprints in `AgentlyTaskLedger`.
 
 Website: https://agentlyoffice.lol
 
@@ -15,7 +15,7 @@ re-checking everything by hand, or not checking at all.
 
 ## The solution
 
-Agenly gives agent work a floor plan. Every task has a desk, a queue position, a source for every line and a human
+Agently gives agent work a floor plan. Every task has a desk, a queue position, a source for every line and a human
 decision at the end:
 
 - **Virtual Agent Office** — walk a pixel office (WASD, click, zoom, minimap) and watch agents move between rooms.
@@ -38,7 +38,7 @@ decision at the end:
 4. The reviewer checks citations, words not found in the cited source, promise words, personal data, placeholders,
    outside links and length.
 5. You approve, edit (the checklist runs again) or send the task back. Approved tasks export as a JSON task file with
-   two keccak-256 hashes, which you can record in `AgenlyTaskLedger`.
+   two keccak-256 hashes, which you can record in `AgentlyTaskLedger`.
 
 Optional AI: when the server has an OpenRouter key and you allow it per agent, the researcher and writer ask a model
 that must answer only from your sources with `[S#]` tags; lines without a known source are dropped and the reviewer
@@ -51,7 +51,7 @@ readings, task file export and verification, wallet connect.
 
 Coming later (planned, not live): the ledger contract once the owner deploys it (until then recording is a practice
 signature in your browser), hosted agents that work while your tab is closed, external tools (search, email,
-calendars) and $AGENLY utility (task credits, workspace capacity, premium office features).
+calendars) and $AGENTLY utility (task credits, workspace capacity, premium office features).
 
 ## Run it locally
 
@@ -109,17 +109,17 @@ src/app/                routes (/, /docs, /token; API: /api/chain, /api/rpc, /ap
 src/components/office/  the office: scene, desks, board, permissions, timeline, ledger wall, dialogs
 src/lib/agency/         researcher, writer, reviewer, permissions, task pipeline, canonical JSON (tested)
 src/lib/office/         floor plan, path finding, pixel font, character sprites, renderer, engine
-src/lib/ledger.ts       reads and writes of AgenlyTaskLedger
+src/lib/ledger.ts       reads and writes of AgentlyTaskLedger
 src/config/             brand.ts (name, CA, launchpad), contracts.ts, assets.ts, ai.ts, wallets.ts
-contracts/              AgenlyTaskLedger + tests (Foundry)
+contracts/              AgentlyTaskLedger + tests (Foundry)
 scripts/                artifact export and verify-deployment
 ```
 
 ## Contracts and token
 
-- `AgenlyTaskLedger` — no constructor arguments; no owner, no admin, no fee, no payable function, no upgrade.
+- `AgentlyTaskLedger` — no constructor arguments; no owner, no admin, no fee, no payable function, no upgrade.
   `record(taskHash, resultHash, steps)`, one record per approver and pair. Address: not deployed yet.
-- `$AGENLY` — launches on Pons (Robinhood Chain). Contract address: TBA (published on the token page first).
+- `$AGENTLY` — launches on Pons (Robinhood Chain). Contract address: TBA (published on the token page first).
 
 ## Security and status
 

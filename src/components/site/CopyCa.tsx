@@ -4,7 +4,7 @@ import { useState } from "react";
 import { BRAND, TOKEN, explorerToken, isAddress, shortAddress } from "@/config/brand";
 import { ArrowUpRight, CheckIcon, CopyIcon } from "@/components/site/Icons";
 
-/* Contract address of $AGENLY from BRAND.ca. Until it is a real address every copy button says "At launch". */
+/* Contract address of $AGENTLY from BRAND.ca. Until it is a real address every copy button says "At launch". */
 
 function useCopy() {
   const [copied, setCopied] = useState(false);
@@ -21,7 +21,7 @@ function useCopy() {
   return { copied, copy };
 }
 
-/** Navbar pill: "$AGENLY 0x12…abcd [Copy]"; on phones only the short "CA" button. */
+/** Navbar pill: "$AGENTLY 0x12…abcd [Copy]"; on phones only the short "CA" button. */
 export function CaPill({ compact = false }: { compact?: boolean }) {
   const { copied, copy } = useCopy();
   const live = TOKEN.isLive;

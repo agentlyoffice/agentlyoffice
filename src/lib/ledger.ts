@@ -3,7 +3,7 @@ import { CONTRACTS } from "@/config/contracts";
 import { LEDGER_ABI } from "@/lib/abi";
 import { read, readMany, rpcCall } from "@/lib/client";
 
-/* Browser reads and the one write the site sends to AgenlyTaskLedger. */
+/* Browser reads and the one write the site sends to AgentlyTaskLedger. */
 
 export type LedgerEntry = { id: number; approver: string; steps: number; chainBlock: number; recordedAt: number; taskHash: string; resultHash: string };
 
@@ -57,5 +57,5 @@ export async function latestRecords(limit = 10): Promise<{ total: number; entrie
 
 /** Text a practice approval signs (no contract yet): both fingerprints and the step count, readable in the wallet. */
 export function practiceMessage(title: string, taskHash: string, resultHash: string, steps: number) {
-  return [`Agenly practice approval (no transaction, nothing sent)`, `Task: ${title.slice(0, 80)}`, `Task hash: ${taskHash}`, `Result hash: ${resultHash}`, `Agent steps: ${steps}`].join("\n");
+  return [`Agently practice approval (no transaction, nothing sent)`, `Task: ${title.slice(0, 80)}`, `Task hash: ${taskHash}`, `Result hash: ${resultHash}`, `Agent steps: ${steps}`].join("\n");
 }

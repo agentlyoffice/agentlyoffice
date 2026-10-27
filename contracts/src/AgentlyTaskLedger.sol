@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-/// @title AgenlyTaskLedger
+/// @title AgentlyTaskLedger
 /// @notice Public, append-only ledger of approved agent tasks on Robinhood Chain.
 ///
-/// When a person approves a task at the Agenly review desk, their wallet can record two keccak-256 fingerprints:
+/// When a person approves a task at the Agently review desk, their wallet can record two keccak-256 fingerprints:
 /// the hash of the task (brief, sources, hand-off plan, tool permissions) and the hash of the approved result
 /// (draft, review checklist, decision). The caller is the approver. Nothing is ever edited or removed.
 ///
@@ -16,7 +16,7 @@ pragma solidity ^0.8.24;
 ///      The same approver cannot record the same (task, result) pair twice; a new result for the same task is a
 ///      new record. On Arbitrum-style chains `block.number` is the parent chain's block, so the chain's own block
 ///      is read from the ArbSys precompile when it answers, and from `block.number` everywhere else (local tests).
-contract AgenlyTaskLedger {
+contract AgentlyTaskLedger {
     struct Entry {
         address approver;
         uint8 steps;

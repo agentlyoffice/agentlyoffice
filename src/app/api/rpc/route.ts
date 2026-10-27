@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 /*
  * JSON-RPC relay for the browser. Some networks intercept the chain's public RPC host, so the site reads
  * through its own server first: read methods for the contracts the site itself reads (tokens, the price feed,
- * the AgenlyTaskLedger) and gas estimates. It never forwards a signed transaction. A cost budget per network
+ * the AgentlyTaskLedger) and gas estimates. It never forwards a signed transaction. A cost budget per network
  * (IPv6 per /64) and a site-wide ceiling keep the RPC quota safe. Rules live in src/lib/relay.ts.
  */
 export async function POST(request: Request) {

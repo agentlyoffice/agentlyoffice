@@ -24,11 +24,11 @@ export default async function DeployPage() {
   return (
     <PageShell>
       <p className="kicker">Owner tool · localhost only</p>
-      <h1 className="h1">Deploy AgenlyTaskLedger</h1>
+      <h1 className="h1">Deploy AgentlyTaskLedger</h1>
       <p className="lead">
         One transaction from your own wallet on Robinhood Chain, about {GAS.deploy.toLocaleString("en-US")} gas. No constructor arguments, no owner, no fee and no token needed, so the ledger can go live before {BRAND.symbol} launches. Progress is kept in this browser.
       </p>
-      <DeployPanel ledger={{ creation: ART.contracts.AgenlyTaskLedger.creation, sha256: ART.contracts.AgenlyTaskLedger.sha256 }} />
+      <DeployPanel ledger={{ creation: ART.contracts.AgentlyTaskLedger.creation, sha256: ART.contracts.AgentlyTaskLedger.sha256 }} />
     </PageShell>
   );
 }

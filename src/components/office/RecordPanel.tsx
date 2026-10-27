@@ -86,7 +86,7 @@ export function RecordPanel({ task }: { task: Task }) {
         </div>
       </dl>
       <div className="row-btns">
-        <button type="button" className="btn sm btn-cream" onClick={() => downloadJson(`agenly-${slug}.json`, b)} data-testid="download-bundle">
+        <button type="button" className="btn sm btn-cream" onClick={() => downloadJson(`agently-${slug}.json`, b)} data-testid="download-bundle">
           Download task file
         </button>
         {task.record ? null : (
@@ -109,7 +109,7 @@ export function RecordPanel({ task }: { task: Task }) {
       ) : (
         <p className="hint">
           {live
-            ? `Recording writes both hashes and your address to AgenlyTaskLedger (about ${GAS.recordFirst.toLocaleString("en-US")} gas). The texts never leave this browser.`
+            ? `Recording writes both hashes and your address to AgentlyTaskLedger (about ${GAS.recordFirst.toLocaleString("en-US")} gas). The texts never leave this browser.`
             : "The ledger contract is not deployed yet, so recording is a practice signature kept in this browser (no transaction, no gas)."}
         </p>
       )}

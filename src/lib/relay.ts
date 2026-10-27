@@ -55,7 +55,7 @@ const dataLimit = (to: unknown) => (typeof to === "string" ? MAX_CALL_DATA : 0);
 
 /**
  * Contracts the browser reads through the relay: USDG, WETH, the ETH / USD feed, the token once launched and
- * the AgenlyTaskLedger once deployed. eth_getCode and receipts are answered for any address. */
+ * the AgentlyTaskLedger once deployed. eth_getCode and receipts are answered for any address. */
 export function readTargets() {
   const list: string[] = [USDG.address, WETH, ETH_USD_FEED];
   if (isAddress(BRAND.ca)) list.push(BRAND.ca);

@@ -3,7 +3,7 @@ import type { Rect } from "@/lib/office/map";
 /** The one-minute tour: nine stops, each framing part of the office. Our own words. */
 export const TOUR: { title: string; text: string; rect: Rect | null; zoom?: number }[] = [
   {
-    title: "Welcome to the Agenly office",
+    title: "Welcome to the Agently office",
     text: "Four agents work here, each at its own desk with its own tools. You bring the work and you make the last call. Here is the floor plan in nine short stops.",
     rect: null,
   },

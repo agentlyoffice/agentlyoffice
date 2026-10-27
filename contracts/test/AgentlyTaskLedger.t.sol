@@ -2,10 +2,10 @@
 pragma solidity ^0.8.24;
 
 import {Test} from "forge-std/Test.sol";
-import {AgenlyTaskLedger} from "../src/AgenlyTaskLedger.sol";
+import {AgentlyTaskLedger} from "../src/AgentlyTaskLedger.sol";
 
-contract AgenlyTaskLedgerTest is Test {
-    AgenlyTaskLedger led;
+contract AgentlyTaskLedgerTest is Test {
+    AgentlyTaskLedger led;
     address alice = address(0xA11CE);
     address bob = address(0xB0B);
     bytes32 constant T1 = keccak256("task-1");
@@ -16,7 +16,7 @@ contract AgenlyTaskLedgerTest is Test {
     event Recorded(uint256 indexed id, bytes32 indexed taskHash, address indexed approver, bytes32 resultHash, uint8 steps, uint64 chainBlock);
 
     function setUp() public {
-        led = new AgenlyTaskLedger();
+        led = new AgentlyTaskLedger();
         vm.roll(1000);
         vm.warp(1_800_000_000);
     }
@@ -28,7 +28,7 @@ contract AgenlyTaskLedgerTest is Test {
         uint256 id = led.record(T1, R1, 3);
         assertEq(id, 1);
         assertEq(led.recordCount(), 1);
-        AgenlyTaskLedger.Entry memory e = led.entry(1);
+        AgentlyTaskLedger.Entry memory e = led.entry(1);
         assertEq(e.approver, alice);
         assertEq(e.steps, 3);
         assertEq(e.chainBlock, 1000);
@@ -43,7 +43,7 @@ contract AgenlyTaskLedgerTest is Test {
     function test_sameTripleRefused() public {
         vm.startPrank(alice);
         led.record(T1, R1, 3);
-        vm.expectRevert(abi.encodeWithSelector(AgenlyTaskLedger.AlreadyRecorded.selector, 1));
+        vm.expectRevert(abi.encodeWithSelector(AgentlyTaskLedger.AlreadyRecorded.selector, 1));
         led.record(T1, R1, 2);
         vm.stopPrank();
     }
@@ -74,18 +74,18 @@ contract AgenlyTaskLedgerTest is Test {
 
     function test_revertZeroHashes() public {
         vm.startPrank(alice);
-        vm.expectRevert(AgenlyTaskLedger.ZeroHash.selector);
+        vm.expectRevert(AgentlyTaskLedger.ZeroHash.selector);
         led.record(bytes32(0), R1, 1);
-        vm.expectRevert(AgenlyTaskLedger.ZeroHash.selector);
+        vm.expectRevert(AgentlyTaskLedger.ZeroHash.selector);
         led.record(T1, bytes32(0), 1);
         vm.stopPrank();
     }
 
     function test_revertBadSteps() public {
         vm.startPrank(alice);
-        vm.expectRevert(abi.encodeWithSelector(AgenlyTaskLedger.BadSteps.selector, uint8(0)));
+        vm.expectRevert(abi.encodeWithSelector(AgentlyTaskLedger.BadSteps.selector, uint8(0)));
         led.record(T1, R1, 0);
-        vm.expectRevert(abi.encodeWithSelector(AgenlyTaskLedger.BadSteps.selector, uint8(33)));
+        vm.expectRevert(abi.encodeWithSelector(AgentlyTaskLedger.BadSteps.selector, uint8(33)));
         led.record(T1, R1, 33);
         uint256 id = led.record(T1, R1, 32);
         vm.stopPrank();
@@ -93,9 +93,9 @@ contract AgenlyTaskLedgerTest is Test {
     }
 
     function test_unknownReads() public {
-        vm.expectRevert(abi.encodeWithSelector(AgenlyTaskLedger.UnknownRecord.selector, 0));
+        vm.expectRevert(abi.encodeWithSelector(AgentlyTaskLedger.UnknownRecord.selector, 0));
         led.entry(0);
-        vm.expectRevert(abi.encodeWithSelector(AgenlyTaskLedger.UnknownRecord.selector, 1));
+        vm.expectRevert(abi.encodeWithSelector(AgentlyTaskLedger.UnknownRecord.selector, 1));
         led.entry(1);
         assertEq(led.idsByApprover(alice, 0, 10).length, 0);
         assertEq(led.idsByTask(T1, 0, 10).length, 0);
@@ -152,27 +152,27 @@ contract AgenlyTaskLedgerTest is Test {
         steps = uint8(bound(steps, 1, 32));
         vm.prank(who);
         uint256 id = led.record(t, r, steps);
-        AgenlyTaskLedger.Entry memory e = led.entry(id);
+        AgentlyTaskLedger.Entry memory e = led.entry(id);
         assertEq(e.approver, who);
         assertEq(e.taskHash, t);
         assertEq(e.resultHash, r);
         assertEq(e.steps, steps);
         assertEq(led.find(who, t, r), id);
         vm.prank(who);
-        vm.expectRevert(abi.encodeWithSelector(AgenlyTaskLedger.AlreadyRecorded.selector, id));
+        vm.expectRevert(abi.encodeWithSelector(AgentlyTaskLedger.AlreadyRecorded.selector, id));
         led.record(t, r, steps);
     }
 
     function testFuzz_badStepsAlwaysRejected(uint8 steps) public {
         vm.assume(steps == 0 || steps > 32);
         vm.prank(alice);
-        vm.expectRevert(abi.encodeWithSelector(AgenlyTaskLedger.BadSteps.selector, steps));
+        vm.expectRevert(abi.encodeWithSelector(AgentlyTaskLedger.BadSteps.selector, steps));
         led.record(T1, R1, steps);
     }
 
     function test_gasDeployAndRecord() public {
         uint256 g0 = gasleft();
-        new AgenlyTaskLedger();
+        new AgentlyTaskLedger();
         uint256 deployGas = g0 - gasleft();
         vm.prank(alice);
         g0 = gasleft();

@@ -1,4 +1,4 @@
-// Collects the compiled Agenly contract into one generated file used by the /deploy page, the app and
+// Collects the compiled Agently contract into one generated file used by the /deploy page, the app and
 // scripts/verify-deployment.mjs:
 //   src/lib/contracts/artifacts.json  (abi, creation + runtime bytecode, named immutable ranges)
 // Run after a forge build:
@@ -10,7 +10,7 @@ import { createHash } from "node:crypto";
 const OUT = new URL("../contracts/out/", import.meta.url);
 const TARGET = new URL("../src/lib/contracts/artifacts.json", import.meta.url);
 // Deployed once by the owner; it does not depend on the token.
-const NAMES = ["AgenlyTaskLedger"];
+const NAMES = ["AgentlyTaskLedger"];
 
 /** Immutable byte ranges with the name of the variable they hold (from the AST). */
 function namedImmutables(a) {
@@ -40,8 +40,8 @@ for (const name of NAMES) {
 const out = {
   generatedBy: "scripts/contracts-artifacts.mjs",
   compiler: "solc 0.8.28, optimizer 200 runs, evm paris, no via-ir, no metadata hash",
-  deployOrder: ["AgenlyTaskLedger"],
-  constructorArgs: { AgenlyTaskLedger: [] },
+  deployOrder: ["AgentlyTaskLedger"],
+  constructorArgs: { AgentlyTaskLedger: [] },
   contracts,
 };
 const text = JSON.stringify(out) + "\n";

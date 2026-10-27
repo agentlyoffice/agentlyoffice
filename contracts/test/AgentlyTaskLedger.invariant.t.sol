@@ -2,18 +2,18 @@
 pragma solidity ^0.8.24;
 
 import {Test} from "forge-std/Test.sol";
-import {AgenlyTaskLedger} from "../src/AgenlyTaskLedger.sol";
+import {AgentlyTaskLedger} from "../src/AgentlyTaskLedger.sol";
 
 /// Drives random records from a few approvers over a few tasks/results and keeps its own model.
 contract LedgerHandler is Test {
-    AgenlyTaskLedger public led;
+    AgentlyTaskLedger public led;
     address[3] public actors = [address(0x1001), address(0x1002), address(0x1003)];
     uint256 public written;
     mapping(bytes32 => uint256) public modelId;
     mapping(address => uint256) public perApprover;
     mapping(bytes32 => uint256) public perTask;
 
-    constructor(AgenlyTaskLedger l) {
+    constructor(AgentlyTaskLedger l) {
         led = l;
     }
 
@@ -38,12 +38,12 @@ contract LedgerHandler is Test {
     }
 }
 
-contract AgenlyTaskLedgerInvariant is Test {
-    AgenlyTaskLedger led;
+contract AgentlyTaskLedgerInvariant is Test {
+    AgentlyTaskLedger led;
     LedgerHandler h;
 
     function setUp() public {
-        led = new AgenlyTaskLedger();
+        led = new AgentlyTaskLedger();
         h = new LedgerHandler(led);
         targetContract(address(h));
     }
@@ -76,7 +76,7 @@ contract AgenlyTaskLedgerInvariant is Test {
                     uint256 id = led.find(who, th, rh);
                     assertEq(id, h.modelId(keccak256(abi.encode(who, th, rh))));
                     if (id != 0) {
-                        AgenlyTaskLedger.Entry memory e = led.entry(id);
+                        AgentlyTaskLedger.Entry memory e = led.entry(id);
                         assertEq(e.approver, who);
                         assertEq(e.taskHash, th);
                         assertEq(e.resultHash, rh);

@@ -1,4 +1,4 @@
-// Proves that a deployed address runs exactly this repository's AgenlyTaskLedger.
+// Proves that a deployed address runs exactly this repository's AgentlyTaskLedger.
 //   (cd contracts && ./setup.sh && forge build --force) && npm run contracts:artifacts -- --check
 //   npm run verify-deployment -- --ledger 0x.. --ledger-tx 0x..  (the creation tx is required)
 // Prints OK/FAIL/INFO per check and exits non-zero on any FAIL. See scripts/verify-lib.mjs.
@@ -32,5 +32,5 @@ try {
 }
 const result = await verifyDeployment({ ledger: opt("--ledger"), ledgerTx: opt("--ledger-tx"), rpc, ART });
 for (const l of result.lines) console.log(l);
-console.log(result.ok ? "MATCH: this address runs the AgenlyTaskLedger from this build." : "MISMATCH: do not trust this deployment.");
+console.log(result.ok ? "MATCH: this address runs the AgentlyTaskLedger from this build." : "MISMATCH: do not trust this deployment.");
 process.exit(result.ok ? 0 : 1);

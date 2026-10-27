@@ -11,8 +11,8 @@ const LEDGER = A(0x9e55);
 const TX = "0x" + "01".repeat(32);
 
 function chain(over = {}) {
-  const codes = { [LEDGER]: ART.AgenlyTaskLedger.runtime, ...over.codes };
-  const tx = { input: over.input ?? ART.AgenlyTaskLedger.creation, to: over.to ?? null, created: over.created ?? LEDGER };
+  const codes = { [LEDGER]: ART.AgentlyTaskLedger.runtime, ...over.codes };
+  const tx = { input: over.input ?? ART.AgentlyTaskLedger.creation, to: over.to ?? null, created: over.created ?? LEDGER };
   return async (method, params) => {
     if (method === "eth_chainId") return over.chainId ?? "0x1237";
     if (method === "eth_getCode") return codes[params[0].toLowerCase()] ?? "0x";
@@ -47,7 +47,7 @@ test("the wrong chain fails before anything else", async () => {
 });
 
 test("appended constructor bytes fail", async () => {
-  const r = await verifyDeployment({ ...args, rpc: chain({ input: ART.AgenlyTaskLedger.creation + "00".repeat(32) }) });
+  const r = await verifyDeployment({ ...args, rpc: chain({ input: ART.AgentlyTaskLedger.creation + "00".repeat(32) }) });
   assert.equal(r.ok, false);
 });
 
@@ -64,10 +64,10 @@ test("an RPC error is a FAIL, not a skip", async () => {
 });
 
 test("match is byte exact", () => {
-  const code = ART.AgenlyTaskLedger.runtime;
-  assert.equal(match(ART, "AgenlyTaskLedger", code), true);
+  const code = ART.AgentlyTaskLedger.runtime;
+  assert.equal(match(ART, "AgentlyTaskLedger", code), true);
   const flipped = code.slice(0, 100) + (code[100] === "0" ? "1" : "0") + code.slice(101);
-  assert.equal(match(ART, "AgenlyTaskLedger", flipped), false);
+  assert.equal(match(ART, "AgentlyTaskLedger", flipped), false);
 });
 
 test("a missing creation tx is never a MATCH", async () => {

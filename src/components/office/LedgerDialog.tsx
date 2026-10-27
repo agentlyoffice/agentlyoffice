@@ -72,7 +72,7 @@ function Verify() {
   return (
     <div className="stack">
       <label className="lbl" htmlFor="verify-file">
-        Task file (agenly-….json)
+        Task file (agently-….json)
       </label>
       <input
         id="verify-file"

@@ -3,23 +3,23 @@
 // the token page, the buy buttons and every explorer link derive from it. Anything that is not a 0x + 40 hex
 // address is treated as "not launched yet".
 
-/** Contract address of $AGENLY. "TBA" until the owner publishes it (owner block 27 Oct 2026: not launched yet). */
+/** Contract address of $AGENTLY. "TBA" until the owner publishes it (owner block 27 Oct 2026: not launched yet). */
 const CA: string = "TBA";
 
 /**
  * True once the domain points at this deployment. While false, the production *.vercel.app host is served
  * as is (kept out of search with noindex) instead of redirecting to a domain that does not serve the site.
- * 27 Oct 2026: agentlyoffice.lol was registered that day (05:16 UTC, Cloudflare name servers, no A record), not on Vercel yet.
+ * 27 Oct 2026: agentlyoffice.lol registered that day and pointed at the Vercel deployment (live).
  */
-export const DOMAIN_LIVE = false;
+export const DOMAIN_LIVE = true;
 
 export const isAddress = (v: string): v is `0x${string}` => /^0x[0-9a-fA-F]{40}$/.test(v);
 
-const NAME = "Agenly";
-const SLUG = "agenly";
-/** Shown upper case everywhere; the owner wrote it as $agenly. */
-const TICKER = "AGENLY";
-/** The owner's domain. The name is "Agenly"; the domain keeps the owner's spelling. */
+const NAME = "Agently";
+const SLUG = "agently";
+/** Shown upper case everywhere; the owner corrected it to $AGENTLY on 27 Oct. */
+const TICKER = "AGENTLY";
+/** The owner's domain. The name is "Agently"; the domain keeps the owner's spelling. */
 const DOMAIN = "agentlyoffice.lol";
 /** X account confirmed by the owner (27 Oct 2026). */
 const X_HANDLE = "agentlyoffice";
@@ -120,7 +120,7 @@ export function chartUrl(address: string): string | null {
 }
 
 /**
- * Where $AGENLY is bought: Pons (ponsfamily.com), the Robinhood Chain launchpad. Before the CA exists the buttons open
+ * Where $AGENTLY is bought: Pons (ponsfamily.com), the Robinhood Chain launchpad. Before the CA exists the buttons open
  * the launchpad home and read "At launch"; afterwards they open the token page /launchpad/<address>. Change it here only.
  */
 export const LAUNCHPAD = {

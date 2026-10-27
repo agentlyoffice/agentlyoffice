@@ -274,7 +274,7 @@ export function OfficeApp() {
     <div className={`office ${tour !== null ? "touring" : ""} ${standup ? "alarm" : ""}`}>
       <SiteNav actions={actions} />
       <main className="stage" id="main-content">
-        <canvas ref={canvas} id="office" aria-label="The Agenly office: a pixel floor plan with agents at their desks. Use the buttons above or the keyboard to move around." />
+        <canvas ref={canvas} id="office" aria-label="The Agently office: a pixel floor plan with agents at their desks. Use the buttons above or the keyboard to move around." />
 
         <div className="hud-tl">
           <div className="room-pill" data-testid="room-pill">

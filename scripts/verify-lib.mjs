@@ -1,9 +1,9 @@
 // Checks behind scripts/verify-deployment.mjs, free of I/O so they can be tested with a fake chain.
 //
-// How it decides that an address runs this repository's AgenlyTaskLedger:
+// How it decides that an address runs this repository's AgentlyTaskLedger:
 //   - Runtime code is compared byte for byte with src/lib/contracts/artifacts.json
 //     (`npm run contracts:artifacts -- --check` proves that file is a fresh forge build).
-//     AgenlyTaskLedger has no immutables and no constructor arguments, so its code must be identical.
+//     AgentlyTaskLedger has no immutables and no constructor arguments, so its code must be identical.
 //   - The creation transaction is required (no tx => FAIL, never MATCH). It must have succeeded, created exactly the address checked, have no
 //     recipient, and its input must be exactly this build's creation code (nothing appended).
 // Every check fails closed: an RPC error, an empty or malformed answer is a FAIL, never a skip.
@@ -23,7 +23,7 @@ export function match(ART, kind, code) {
 
 /** input: { ledger?, ledgerTx?, rpc, ART }. rpc(method, params) -> result (may throw). Returns { ok, lines }. */
 export async function verifyDeployment({ ledger, ledgerTx, rpc, ART }) {
-  const encodedArgs = ""; // AgenlyTaskLedger has no constructor arguments
+  const encodedArgs = ""; // AgentlyTaskLedger has no constructor arguments
   const lines = [];
   let failed = false;
   const ok = (m) => lines.push(`OK   ${m}`);
@@ -55,32 +55,32 @@ export async function verifyDeployment({ ledger, ledgerTx, rpc, ART }) {
   try {
     const c = await rpc("eth_getCode", [ledger, "latest"]);
     if (!isHex(c) || c.length <= 2) throw new Error(`no code at ${ledger}`);
-    if (match(ART, "AgenlyTaskLedger", c)) ok(`AgenlyTaskLedger at ${ledger}: runtime matches this build (no owner, no immutables)`);
-    else fail(`AgenlyTaskLedger at ${ledger}: runtime differs from this build`);
+    if (match(ART, "AgentlyTaskLedger", c)) ok(`AgentlyTaskLedger at ${ledger}: runtime matches this build (no owner, no immutables)`);
+    else fail(`AgentlyTaskLedger at ${ledger}: runtime differs from this build`);
   } catch (e) {
-    fail(`AgenlyTaskLedger: ${e.message}`);
+    fail(`AgentlyTaskLedger: ${e.message}`);
   }
   // Runtime code alone cannot show who deployed it or with what input: without the creation tx the
   // answer is never MATCH.
   if (!ledgerTx) {
-    fail("AgenlyTaskLedger: no creation tx given (pass --ledger-tx); runtime alone is not a full match");
+    fail("AgentlyTaskLedger: no creation tx given (pass --ledger-tx); runtime alone is not a full match");
     return done();
   }
   if (typeof ledgerTx !== "string" || !/^0x[0-9a-fA-F]{64}$/.test(ledgerTx)) {
-    fail("AgenlyTaskLedger: --ledger-tx is not a 32-byte transaction hash");
+    fail("AgentlyTaskLedger: --ledger-tx is not a 32-byte transaction hash");
     return done();
   }
   try {
     const [tx, rc] = await Promise.all([rpc("eth_getTransactionByHash", [ledgerTx]), rpc("eth_getTransactionReceipt", [ledgerTx])]);
-    if (!tx || !rc) fail(`AgenlyTaskLedger: creation tx ${ledgerTx} not found`);
-    else if (rc.status !== "0x1") fail("AgenlyTaskLedger: creation tx failed");
-    else if (!same(rc.contractAddress, ledger)) fail(`AgenlyTaskLedger: tx created ${rc.contractAddress}, not ${ledger}`);
-    else if (tx.to) fail("AgenlyTaskLedger: tx has a recipient, not a deployment");
+    if (!tx || !rc) fail(`AgentlyTaskLedger: creation tx ${ledgerTx} not found`);
+    else if (rc.status !== "0x1") fail("AgentlyTaskLedger: creation tx failed");
+    else if (!same(rc.contractAddress, ledger)) fail(`AgentlyTaskLedger: tx created ${rc.contractAddress}, not ${ledger}`);
+    else if (tx.to) fail("AgentlyTaskLedger: tx has a recipient, not a deployment");
     // Creation code plus ABI-encoded constructor arguments; this contract takes none, so nothing may follow.
-    else if (String(tx.input).toLowerCase() === ART.AgenlyTaskLedger.creation + encodedArgs) ok("AgenlyTaskLedger: creation input is exactly this build (no constructor arguments)");
-    else fail("AgenlyTaskLedger: creation input differs from this build");
+    else if (String(tx.input).toLowerCase() === ART.AgentlyTaskLedger.creation + encodedArgs) ok("AgentlyTaskLedger: creation input is exactly this build (no constructor arguments)");
+    else fail("AgentlyTaskLedger: creation input differs from this build");
   } catch (e) {
-    fail(`AgenlyTaskLedger: creation tx unreadable: ${e.message}`);
+    fail(`AgentlyTaskLedger: creation tx unreadable: ${e.message}`);
   }
   return done();
 }

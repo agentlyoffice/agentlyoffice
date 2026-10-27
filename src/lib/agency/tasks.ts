@@ -178,7 +178,7 @@ export function retry(t: Task, permissions: Permissions): Task {
 export function taskDoc(t: Task) {
   return {
     v: 1,
-    kind: "agenly.task",
+    kind: "agently.task",
     id: t.id,
     title: t.title,
     brief: t.brief,
@@ -195,7 +195,7 @@ export function taskDoc(t: Task) {
 export function resultDoc(t: Task) {
   return {
     v: 1,
-    kind: "agenly.result",
+    kind: "agently.result",
     facts: t.facts,
     research: t.research ? { by: t.research.by, points: t.research.points.map((p) => ({ text: p.text, source: p.source })) } : null,
     draft: t.draft ? { by: t.draft.by, template: t.draft.template, title: t.draft.title, body: t.draft.body, edited: t.draft.edited } : null,
@@ -207,19 +207,19 @@ export function resultDoc(t: Task) {
 /** Agent steps that ran successfully, capped at the contract's limit. */
 export const stepCount = (t: Task) => Math.max(1, Math.min(32, t.steps.filter((s) => s.ok && s.agent !== "clerk").length));
 
-export type Bundle = { format: "agenly.bundle/1"; task: ReturnType<typeof taskDoc>; result: ReturnType<typeof resultDoc>; taskHash: `0x${string}`; resultHash: `0x${string}`; steps: number };
+export type Bundle = { format: "agently.bundle/1"; task: ReturnType<typeof taskDoc>; result: ReturnType<typeof resultDoc>; taskHash: `0x${string}`; resultHash: `0x${string}`; steps: number };
 
 export function bundle(t: Task): Bundle {
   const task = taskDoc(t);
   const result = resultDoc(t);
-  return { format: "agenly.bundle/1", task, result, taskHash: hashDoc(task), resultHash: hashDoc(result), steps: stepCount(t) };
+  return { format: "agently.bundle/1", task, result, taskHash: hashDoc(task), resultHash: hashDoc(result), steps: stepCount(t) };
 }
 
 /** Recomputes both hashes of an exported bundle and says whether they match what the file claims. */
 export function checkBundle(raw: unknown): { ok: true; taskHash: `0x${string}`; resultHash: `0x${string}`; steps: number; claimsMatch: boolean; title: string } | { ok: false; error: string } {
   if (!raw || typeof raw !== "object") return { ok: false, error: "Not a JSON object." };
   const b = raw as Partial<Bundle>;
-  if (b.format !== "agenly.bundle/1" || !b.task || !b.result) return { ok: false, error: "Not an Agenly task file (format agenly.bundle/1)." };
+  if (b.format !== "agently.bundle/1" || !b.task || !b.result) return { ok: false, error: "Not an Agently task file (format agently.bundle/1)." };
   try {
     const taskHash = hashDoc(b.task);
     const resultHash = hashDoc(b.result);

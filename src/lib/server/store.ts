@@ -9,7 +9,8 @@ import { createClient } from "redis";
  *                                       (Vercel's Redis integration), or
  *   UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN, or
  *   KV_REST_API_URL + KV_REST_API_TOKEN (Upstash over its REST API).
- * Every key is prefixed with "agenly:" (or STORE_KEY_PREFIX when set), so several
+ * Every key is prefixed with "agenly:" (or STORE_KEY_PREFIX when set; the prefix keeps the project's first slug on
+ * purpose, matching its kv-gateway namespace), so several
  * projects can share one Redis and a per-project Redis user (ACL ~agenly:*) can be
  * limited to its own keys.
  *

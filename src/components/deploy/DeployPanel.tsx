@@ -11,7 +11,7 @@ import { explain, waitForReceipt } from "@/lib/client";
 type Art = { creation: string; sha256: string };
 type Progress = { ledger?: string; ledgerTx?: string; ledgerBlock?: number };
 
-/** Owner tool: deploys AgenlyTaskLedger from the connected wallet. */
+/** Owner tool: deploys AgentlyTaskLedger from the connected wallet. */
 export function DeployPanel({ ledger }: { ledger: Art }) {
   const { address, onRobinhoodChain, sendTransaction, switchNetwork } = useWallet();
   const { open } = useWalletModal();
@@ -26,12 +26,12 @@ export function DeployPanel({ ledger }: { ledger: Art }) {
     setBusy(true);
     try {
       const data = ledger.creation as `0x${string}`;
-      say(`AgenlyTaskLedger: confirm in the wallet (${(data.length - 2) / 2} bytes)`);
+      say(`AgentlyTaskLedger: confirm in the wallet (${(data.length - 2) / 2} bytes)`);
       const hash = await sendTransaction({ data });
-      say(`AgenlyTaskLedger: sent ${hash}`);
+      say(`AgentlyTaskLedger: sent ${hash}`);
       const r = await waitForReceipt(hash, 300_000);
-      if (!r.ok || !r.contractAddress) throw new Error("AgenlyTaskLedger deployment reverted");
-      say(`AgenlyTaskLedger: deployed at ${r.contractAddress} (block ${r.blockNumber})`);
+      if (!r.ok || !r.contractAddress) throw new Error("AgentlyTaskLedger deployment reverted");
+      say(`AgentlyTaskLedger: deployed at ${r.contractAddress} (block ${r.blockNumber})`);
       setP({ ledger: r.contractAddress, ledgerTx: hash, ledgerBlock: r.blockNumber });
     } catch (e) {
       say(`failed: ${explain(e)}`);
@@ -56,7 +56,7 @@ export function DeployPanel({ ledger }: { ledger: Art }) {
   return (
     <div className="stack" data-testid="deploy-panel">
       <section className="paper">
-        <h2 className="h3">1 · AgenlyTaskLedger (no arguments, no token)</h2>
+        <h2 className="h3">1 · AgentlyTaskLedger (no arguments, no token)</h2>
         <p className="mono small muted">Build sha256 {ledger.sha256.slice(0, 16)}…</p>
         {p.ledger ? (
           <p>
@@ -72,7 +72,7 @@ export function DeployPanel({ ledger }: { ledger: Art }) {
           </p>
         ) : (
           <button type="button" className="btn btn-orange" disabled={busy} data-testid="deploy-ledger" onClick={deploy}>
-            {busy ? "Deploying…" : "Deploy AgenlyTaskLedger"}
+            {busy ? "Deploying…" : "Deploy AgentlyTaskLedger"}
           </button>
         )}
       </section>
