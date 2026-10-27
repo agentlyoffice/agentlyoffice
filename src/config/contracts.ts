@@ -9,9 +9,9 @@ import { isAddress } from "@/config/brand";
  * Check a deployment any time: `npm run verify-deployment -- --ledger <address> --ledger-tx <tx>`.
  */
 const DEPLOYED = {
-  ledger: "",
+  ledger: "0xeb56aac239a137f1710da1a819997173a806f0cc",
   /** Block of the AgentlyTaskLedger deployment. */
-  ledgerBlock: 0,
+  ledgerBlock: 99156851,
 };
 
 /**
