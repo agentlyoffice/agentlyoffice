@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ASSETS } from "@/config/assets";
 import { BRAND, CHAIN, LAUNCHPAD, buyUrl, explorerAddress, hasGithub } from "@/config/brand";
 import { CONTRACTS, CONTRACT_NAMES, ledgerLive } from "@/config/contracts";
 import { CaBlock } from "@/components/site/CopyCa";
@@ -9,7 +10,7 @@ export function SiteFooter() {
       <div className="foot-grid">
         <div>
           <p className="foot-brand">
-            <span className="brand-mark" aria-hidden="true" /> {BRAND.name}
+            <img src={ASSETS.mark.src} width={ASSETS.mark.w} height={ASSETS.mark.h} alt="" aria-hidden="true" className="foot-mascot" /> {BRAND.name}
           </p>
           <p className="foot-note">
             {BRAND.tagline} An independent project on {BRAND.chainName}. The agents run in your browser; the ledger contract stores fingerprints, never your texts. {BRAND.symbol} is a utility token with no promise of value. Nothing here is financial advice.

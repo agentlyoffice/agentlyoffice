@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ASSETS } from "@/config/assets";
 import { BRAND } from "@/config/brand";
 import { CaPill } from "@/components/site/CopyCa";
 import { Face } from "@/components/office/Face";
@@ -41,8 +42,16 @@ export function SiteNav({ actions, current }: { actions?: NavActions; current?: 
   return (
     <header className="nav">
       <Link href="/" className="brand" aria-label={`${BRAND.name} office`}>
-        <span className="brand-mark" aria-hidden="true" />
-        {actions ? <h1 className="brand-name">{BRAND.name}</h1> : <span className="brand-name">{BRAND.name}</span>}
+        <img src={ASSETS.mark.src} width={ASSETS.mark.w} height={ASSETS.mark.h} alt="" aria-hidden="true" className="brand-mascot" />
+        {actions ? (
+          <h1 className="brand-name">
+            <img src={ASSETS.wordmark.src} width={ASSETS.wordmark.w} height={ASSETS.wordmark.h} alt={BRAND.name} className="brand-word" />
+          </h1>
+        ) : (
+          <span className="brand-name">
+            <img src={ASSETS.wordmark.src} width={ASSETS.wordmark.w} height={ASSETS.wordmark.h} alt={BRAND.name} className="brand-word" />
+          </span>
+        )}
       </Link>
       <nav className="links" aria-label="Main">
         {actions ? (
